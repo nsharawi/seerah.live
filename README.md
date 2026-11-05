@@ -43,9 +43,17 @@ Then Authentication → Settings → **Authorized domains**: add your hosting do
 2. GitHub repo → Settings → Secrets and variables → Actions → add:
    - `FIREBASE_SERVICE_ACCOUNT`: the full JSON key
    - `FIREBASE_PROJECT_ID`: your project id
-3. Push to `main` (or run the workflow by hand). The site goes live at `https://<project-id>.web.app`.
+3. Push to `main` (or run the workflow by hand). The site goes live at `https://<project-id>.web.app`, and at `https://searah.live` once the domain is connected (step 5).
 
-### 5. Make yourself an admin (to delete anyone's answers)
+### 5. Use the domain searah.live
+1. Buy `searah.live` from any registrar (Namecheap, Cloudflare, Porkbun, GoDaddy…).
+2. Firebase console → Hosting → **Add custom domain** → enter `searah.live` (and add `www.searah.live` set to redirect to it).
+3. Firebase shows a **TXT** record (to prove you own it) and then **A** records. Add them in your registrar's DNS settings. Remove any other A/AAAA records the registrar added for parking.
+4. Wait for verification and the free SSL certificate (minutes to a few hours).
+5. Authentication → Settings → **Authorized domains** → add `searah.live` and `www.searah.live`.
+6. Keep `authDomain` in `config.js` as `<project-id>.firebaseapp.com`, so the Microsoft and Facebook redirect URIs you registered keep working.
+
+### 6. Make yourself an admin (to delete anyone's answers)
 Sign in once, copy your user id from Authentication → Users, then in Firestore create a document `admins/<your-user-id>` with any field (for example `role: "owner"`).
 
 ## Changing things later
