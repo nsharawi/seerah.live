@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+    function today() {
+      return string(request.time.year()) + "-" + string(request.time.month()) + "-" + string(request.time.day());
+    }
+
+    // Saved questions and answers, one document per question
+    match /qa/{id} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['event','q','a','sources','suggest','uid','name','at'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.event is string && request.resource.data.event.matches('s[0-9]{1,3}')
+        && request.resource.data.q is string && request.resource.data.q.size() > 0 && request.resource.data.q.size() <= 200
+        && request.resource.data.a is string && request.resource.data.a.size() > 0 && request.resource.data.a.size() <= 4000
+        && request.resource.data.sources is list && request.resource.data.sources.size() <= 8
+        && request.resource.data.suggest is string && request.resource.data.suggest.size() <= 30000
+        && request.resource.data.name is string && request.resource.data.name.size() <= 80
+        && request.resource.data.at == request.time;
+      allow delete: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+      allow update: if false;
+    }
+
+    // Daily question counter per person (limit must match DAILY_QUESTION_LIMIT in public/js/config.js)
+    match /usage/{uid}/days/{day} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow create: if signedIn() && request.auth.uid == uid && day == today()
+        && request.resource.data.keys().hasOnly(['count']) && request.resource.data.count == 1;
+      allow update: if signedIn() && request.auth.uid == uid && day == today()
+        && request.resource.data.keys().hasOnly(['count'])
+        && request.resource.data.count == resource.data.count + 1
+        && request.resource.data.count <= 20;
+    }
+
+    // Admins are added by hand in the Firebase console (document id = the person's user id)
+    match /admins/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+  }
+}

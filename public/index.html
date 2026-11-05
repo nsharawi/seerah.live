@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>حكايات السيرة للأطفال</title>
+<meta name="description" content="قصص من السيرة النبوية للأطفال على خط زمني، مع أسئلة الأطفال وأجوبتها المحفوظة.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <div>
+      <h1>حكايات السيرة للأطفال</h1>
+      <p class="sub">اختاروا حدثًا من الخط الزمني، اقرؤوا حكايته معًا، ثم اسألوا عن كل ما يخطر ببالكم.</p>
+    </div>
+    <div class="who" id="who" hidden>
+      <span id="whoName"></span>
+      <button class="btn" id="signOutBtn" type="button">تسجيل الخروج</button>
+    </div>
+  </header>
+
+  <section class="auth" id="authBox" hidden>
+    <h2>سجّلوا الدخول لحفظ الأسئلة وطرحها</h2>
+    <p class="note">يمكنكم قراءة الحكايات دون تسجيل. التسجيل مطلوب لطرح الأسئلة ورؤية دفتر الأسئلة.</p>
+    <div class="providers">
+      <button class="btn" type="button" data-provider="google">الدخول بحساب Google</button>
+      <button class="btn" type="button" data-provider="apple">الدخول بحساب Apple</button>
+      <button class="btn" type="button" data-provider="microsoft">الدخول بحساب Microsoft</button>
+      <button class="btn" type="button" data-provider="facebook">الدخول بحساب Facebook</button>
+    </div>
+    <div class="or">أو بالبريد الإلكتروني</div>
+    <form class="emailf" id="emailForm" novalidate>
+      <input id="emName" type="text" autocomplete="name" placeholder="الاسم (لإنشاء حساب جديد)" aria-label="الاسم">
+      <input id="emEmail" type="email" autocomplete="email" placeholder="name@example.com" aria-label="البريد الإلكتروني" dir="ltr">
+      <input id="emPass" type="password" autocomplete="current-password" placeholder="كلمة المرور (٦ أحرف على الأقل)" aria-label="كلمة المرور">
+      <div class="row">
+        <button class="btn primary" id="emSignIn" type="submit">دخول</button>
+        <button class="btn" id="emSignUp" type="button">إنشاء حساب</button>
+      </div>
+      <button class="linkbtn" id="emReset" type="button">نسيت كلمة المرور؟</button>
+    </form>
+    <p class="status" id="authStatus" hidden></p>
+  </section>
+
+  <div class="legend"><span><i class="sw mk"></i>العهد المكي</span><span><i class="sw md"></i>العهد المدني</span><span class="hint">اضغطوا على أي حدث لقراءة حكايته</span></div>
+  <div id="tl" class="tl"></div>
+
+  <div id="panel" class="panel" hidden>
+    <p class="story" id="sy"></p>
+    <div class="box lesson"><b>العبرة</b><span id="ls"></span></div>
+    <div class="box kq"><b>سؤال للأطفال</b><span id="qs"></span></div>
+    <section class="sec ask" id="askCard">
+      <h3>اسأل عن هذه الحكاية</h3>
+      <p class="note" id="askLocked" hidden>سجّلوا الدخول من الأعلى لطرح الأسئلة.</p>
+      <div id="askTools">
+        <div><button class="btn" id="genBtn" type="button">ماذا قد يسأل الأطفال هنا؟</button></div>
+        <div class="suggs" id="suggs"></div>
+        <form class="row" id="askForm">
+          <input id="qIn" type="text" maxlength="200" placeholder="لماذا اختبأ النبي ﷺ في الغار؟" aria-label="سؤال الطفل">
+          <button class="btn primary" id="askBtn" type="submit">اسأل</button>
+        </form>
+      </div>
+      <p class="status" id="st" hidden></p>
+      <div class="answer" id="ans" hidden></div>
+      <div class="sources" id="ansSrc" hidden></div>
+      <div class="gsugg" id="ansSugg" hidden></div>
+      <p class="note">الأجوبة يكتبها الذكاء الاصطناعي (Gemini) بعد البحث في Google، ضمن تعليمات صارمة. راجعوها مع أطفالكم، وارجعوا إلى أهل العلم فيما يُشكل.</p>
+    </section>
+    <section class="sec book">
+      <h3>دفتر الأسئلة · <span id="bookCount">٠</span></h3>
+      <div id="list"><p class="empty">سجّلوا الدخول لرؤية الأسئلة المحفوظة.</p></div>
+    </section>
+    <div class="nav">
+      <button class="btn" id="pv" type="button">→ الحدث السابق</button>
+      <button class="btn" id="nx" type="button">الحدث التالي ←</button>
+    </div>
+  </div>
+</div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

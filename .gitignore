@@ -1,0 +1,5 @@
+node_modules/
+.firebase/
+*.log
+service-account*.json
+.DS_Store
