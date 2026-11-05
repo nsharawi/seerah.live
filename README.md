@@ -10,7 +10,7 @@ An Arabic timeline of the Prophet's life ﷺ for children. Each event opens a ki
 | `public/js/stories.js` | The 12 stories on the timeline |
 | `public/js/prompts.js` | The strict rules injected into every Gemini answer |
 | `public/js/config.js` | Your Firebase keys, model name, daily question limit |
-| Firebase Authentication | Google, Apple, Microsoft, Facebook, email/password sign-in |
+| Firebase Authentication | Google, Microsoft, Facebook, email/password sign-in |
 | Firebase AI Logic | Calls Gemini with the Google Search tool from the page |
 | Cloud Firestore | `qa` (saved answers), `usage` (daily limit), `admins` |
 | `.github/workflows/deploy.yml` | Every push to `main` deploys the site and database rules |
@@ -35,7 +35,6 @@ Authentication → Sign-in method:
 - **Google**: enable (no extra accounts needed).
 - **Microsoft**: create an app registration in Microsoft Entra ID (portal.azure.com), add the redirect URI Firebase shows you, paste the client id and secret.
 - **Facebook**: create an app at developers.facebook.com, add *Facebook Login*, paste the app id and secret, and add the Firebase redirect URI in Facebook's settings.
-- **Apple**: needs an Apple Developer account ($99/year). Create a Services ID and a key for *Sign in with Apple*, register your domain, and paste the details Firebase asks for.
 
 Then Authentication → Settings → **Authorized domains**: add your hosting domain (and your custom domain if you add one).
 

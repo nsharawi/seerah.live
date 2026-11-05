@@ -228,7 +228,6 @@ async function ask(raw) {
 // ---------- Sign-in ----------
 const providers = {
   google: () => new GoogleAuthProvider(),
-  apple: () => { const p = new OAuthProvider("apple.com"); p.addScope("email"); p.addScope("name"); p.setCustomParameters({ locale: "ar" }); return p; },
   microsoft: () => { const p = new OAuthProvider("microsoft.com"); p.setCustomParameters({ prompt: "select_account" }); return p; },
   facebook: () => { const p = new FacebookAuthProvider(); p.addScope("email"); return p; }
 };
